@@ -5,7 +5,10 @@ using Arpack
 using ProgressMeter
 using Random
 using Distributions
-import Seaborn
+using PyPlot
+using PyCall
+@pyimport seaborn as sns
+# import Seaborn
 import Pandas
 
 function pca(A, k)
@@ -51,7 +54,8 @@ function sb_pairplot(A, clean=5000)
     d, n = size(A)
     df = Pandas.DataFrame(A')
     df["poison"] = .! step_vec(n, clean)
-    Seaborn.pairplot(df, diag_kind="kde", hue="poison")
+    # Seaborn.pairplot(df, diag_kind="kde", hue="poison")
+    sns.pairplot(df, diag_kind="kde", hue="poison")
 end
 
 function ♭(A::AbstractMatrix)
